@@ -1,0 +1,102 @@
+<h3>1. Project overview</h3>
+<p>Campus Explorer is an Android application that helps students find their way around a university campus: lecture buildings, libraries, cafeterias and study areas.</p>
+<p>The application shows a campus map with a few points of interest, displays the user's position, and can record a walk as a tracking session.</p>
+<p>We build it in Java with XML layouts in Android Studio. The map uses OpenStreetMap data, displayed with Leaflet.js inside an Android WebView. The project covers the main topics of the course: Activities, Intents, the Activity lifecycle, a background service, GPS as a sensor, location services and user interface design.</p>
+
+<h3>2. Problem and motivation</h3>
+<p>New students often do not know where buildings and services are on campus. Campus Explorer gives them a simple map with a short list of useful places. The application shows campus points of interest and lets users follow their position while they walk.</p>
+
+<h3>3. Main objectives</h3>
+<ul>
+<li>Display a campus map with predefined points of interest.</li>
+<li>Show basic information about a selected place.</li>
+<li>Display the user's current location once permission is granted.</li>
+<li>Start and stop a location-tracking session.</li>
+<li>Manage the Activity lifecycle correctly and navigate between screens.</li>
+<li>Keep a tracking session running in a background service when the app is no longer visible, only if the user started it.</li>
+</ul>
+
+<h3>4. Screens and Activities</h3>
+<p>The application has three Activities.</p>
+<table border="1" cellpadding="6" style="border-collapse: collapse; width: 100%;">
+<thead>
+<tr style="background-color: #e7eef5;"><th>Activity</th><th>Role</th><th>Main elements</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>1. Home</strong></td><td>Entry point of the application</td><td><ul><li>application name and short description</li><li>button to open the map</li><li>button to open saved places and history</li></ul></td></tr>
+<tr><td><strong>2. Campus map</strong></td><td>OpenStreetMap map displayed with Leaflet.js</td><td><ul><li>map centred on the campus</li><li>markers for the predefined places, with name and description</li><li>button to show the current location</li><li>start and stop buttons for tracking</li></ul></td></tr>
+<tr><td><strong>3. Saved places and history</strong></td><td>List of saved places and recent tracking sessions</td><td><ul><li>select a place to return to the map</li><li>data stored locally on the phone</li></ul></td></tr>
+</tbody>
+</table>
+<p>The first version uses predefined places stored in the application. It has no user accounts, no cloud synchronisation and no remote database.</p>
+<p><em>[FIGURE 1: insert fig1_navigation.png here]</em></p>
+<p><em>Figure 1: Navigation between the three Activities</em></p>
+
+<h3>5. Android components and course concepts</h3>
+<p>The architecture below shows the main components of the application and the data that flows between them.</p>
+<p><em>[FIGURE 2: insert fig2_architecture.png here]</em></p>
+<p><em>Figure 2: Application architecture: components and data flows</em></p>
+<table border="1" cellpadding="6" style="border-collapse: collapse; width: 100%;">
+<thead>
+<tr style="background-color: #e7eef5;"><th>Course concept</th><th>How Campus Explorer uses it</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Activities and Intents</strong></td><td>Three Activities, one per main screen. Explicit Intents are used for navigation, and the identifier of a selected place is passed as an Intent extra.</td></tr>
+<tr><td><strong>Activity lifecycle</strong></td><td><code>onCreate()</code>, <code>onResume()</code>, <code>onPause()</code> and <code>onStop()</code> are implemented and tested. The map screen manages UI-related location updates according to its lifecycle and refreshes its state in <code>onResume()</code>.</td></tr>
+<tr><td><strong>Background service</strong></td><td>A foreground service records location updates during an active tracking session, even when the user switches to another app or turns off the screen. A persistent notification indicates that tracking is active and provides a way to stop it.</td></tr>
+<tr><td><strong>Sensor</strong></td><td>GPS is used as the sensor to obtain the device's geographical position and monitor location changes during a tracking session.</td></tr>
+<tr><td><strong>Location and maps</strong></td><td>Android location APIs and runtime permissions are used to obtain the user's position. OpenStreetMap tiles are displayed using Leaflet.js in a WebView, with the user's location shown on the map.</td></tr>
+<tr><td><strong>Local data</strong></td><td>Predefined campus places are included in the application. Saved places and tracking-session summaries can be stored locally using SharedPreferences or SQLite.</td></tr>
+</tbody>
+</table>
+
+<h4>5.1 Background service</h4>
+<p>The user starts and stops tracking explicitly. While a session is active, the service shows a persistent notification with the session status and a Stop action. When the session ends, the service stops location updates and releases its resources.</p>
+<p><em>[FIGURE 3: insert fig3_tracking.png here]</em></p>
+<p><em>Figure 3: A tracking session, from Start to Stop</em></p>
+<p>The service follows Android's rules for foreground services and location permissions, and never runs when no session is active. Its lifecycle is independent of the map Activity: leaving the map screen does not stop a session the user started.</p>
+
+<h4>5.2 Location and maps</h4>
+<p>Location permission is requested only when the user needs it. If permission is denied or location is unavailable, the map still shows the predefined campus places.</p>
+
+<h3>6. Technical choices</h3>
+<table border="1" cellpadding="6" style="border-collapse: collapse; width: 100%;">
+<thead>
+<tr style="background-color: #e7eef5;"><th>Component</th><th>Choice</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Language</strong></td><td>Java</td></tr>
+<tr><td><strong>Development environment</strong></td><td>Android Studio</td></tr>
+<tr><td><strong>Interface</strong></td><td>XML layouts and standard Android Views</td></tr>
+<tr><td><strong>Navigation</strong></td><td>Activities and explicit Intents</td></tr>
+<tr><td><strong>Map</strong></td><td>OpenStreetMap tiles displayed with Leaflet.js in a WebView</td></tr>
+<tr><td><strong>Location</strong></td><td>Android location APIs and runtime permissions</td></tr>
+<tr><td><strong>Background work</strong></td><td>Foreground service, started by the user, for active tracking</td></tr>
+</tbody>
+</table>
+<p>Map tiles need an internet connection. Without one, the application shows a message and keeps working with the list of places.</p>
+
+<h3>7. Privacy and permissions</h3>
+<ul>
+<li>Location permission is requested when the user opens a feature that needs it, with a short explanation of why.</li>
+<li>Background tracking starts only after a user action and is always shown by a notification. The user can stop it at any time.</li>
+<li>Location data stays on the phone. No account, no personal data, nothing sent to a server.</li>
+<li>A denied permission or unavailable GPS location never makes the application crash.</li>
+</ul>
+
+<h3>8. Development plan</h3>
+<table border="1" cellpadding="6" style="border-collapse: collapse; width: 100%;">
+<thead>
+<tr style="background-color: #e7eef5;"><th>Phase</th><th>Tasks</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>1. Design and setup</strong></td><td><ul><li>finalise the Figma mockup</li><li>create the Android Studio project</li><li>build the three Activities and their XML layouts</li><li>navigation with Intents</li></ul></td></tr>
+<tr><td><strong>2. Map and location</strong></td><td><ul><li>display the campus map</li><li>add the predefined points of interest</li><li>request location permission and show the user's position</li></ul></td></tr>
+<tr><td><strong>3. GPS and tracking</strong></td><td><ul><li>use GPS to obtain location updates</li><li>implement the tracking service and its notification</li><li>add start and stop controls</li></ul></td></tr>
+<tr><td><strong>4. Testing and documentation</strong></td><td><ul><li>Activity transitions and lifecycle callbacks</li><li>denied permission, unavailable GPS location</li><li>tracking while the screen is off</li><li>README, code reuse notes, demonstration</li></ul></td></tr>
+</tbody>
+</table>
+
+<h3>9. Expected results</h3>
+<p>The final application will show a working campus map, navigation between three Activities, GPS-based location access, GPS as the selected sensor, and a background tracking service, with correct lifecycle management, permission handling and resource cleanup.</p>
+<p>We will give priority to these core features working reliably rather than adding many optional ones.</p>

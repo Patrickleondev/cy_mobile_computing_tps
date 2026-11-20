@@ -20,4 +20,9 @@ Les anciens guides à trous (`TPn_pas_a_pas.md`) sont gardés pour mémoire.
 
 Pour ouvrir un projet : Android Studio, **File > Open**, choisir le dossier `projet_...`.
 
-`cours/` : supports du cours (`supports/`), fiches de révision (`fiches/`), photos du tableau.
+## Projet final
+
+[Campus Explorer](PROJET_Campus_Explorer) : déclaration de projet, description Moodle, figures et
+présentation finale. Code : https://github.com/Asma-bey/campus-Explorer
+
+`cours/` : supports du cours (`supports/`), fiches de révision (`fiches/`), photos du tableau, planning.
