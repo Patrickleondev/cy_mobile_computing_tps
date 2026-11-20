@@ -153,6 +153,30 @@ def code(lignes):
 n_fig = [0]
 
 
+def grille(images, legende, largeur=4.6, colonnes=3):
+    """Captures côte à côte, chacune dans sa case avec sa petite légende, espacées."""
+    lignes = (len(images) + colonnes - 1) // colonnes
+    tab = doc.add_table(rows=lignes, cols=colonnes)
+    sans_bordures(tab)
+    tab.alignment = WD_TABLE_ALIGNMENT.CENTER
+    for i, (chemin, sous) in enumerate(images):
+        c = tab.rows[i // colonnes].cells[i % colonnes]
+        p = c.paragraphs[0]
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.paragraph_format.space_before = Pt(6)
+        p.add_run().add_picture(str(CAPTURES / chemin), width=Cm(largeur))
+        q = c.add_paragraph()
+        q.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        q.paragraph_format.space_after = Pt(10)
+        texte(q, sous, taille=8.5, couleur=GRIS, italique=True)
+    n_fig[0] += 1
+    p = doc.add_paragraph(style="Caption")
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(4)
+    p.paragraph_format.space_after = Pt(14)
+    p.add_run(f"Figure {n_fig[0]}: {legende}")
+
+
 def figure(nom, legende, largeur=16):
     doc.add_picture(str(CAPTURES / nom), width=Cm(largeur))
     doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -223,7 +247,10 @@ code([
 para("The path of the picture is saved in a new PHOTO column of the database (version 2, and "
      "version 3 with VIDEO for the bonus). onUpgrade adds the columns with ALTER TABLE instead of "
      "dropping the table, so the events already created are kept.")
-figure("1_prendre_photo.png", "the form, the Camera application, the confirmation, then the preview in the form")
+grille([("mes_captures/01_permission_localisation.png", "location permission"),
+        ("mes_captures/02_formulaire_avant_photo.png", "form, no photo yet"),
+        ("mes_captures/03_formulaire_apercu_photo.png", "preview after the photo")],
+       "the extra step in the form")
 
 titre("2.4 Keeping the picture when the screen is recreated", 2)
 para("While the Camera application is open, Android may destroy the form, for example when the "
@@ -231,7 +258,9 @@ para("While the Camera application is open, Android may destroy the form, for ex
      "disk but the form does not know where. I save both paths in onSaveInstanceState and read them "
      "back in onCreate. I checked it on the emulator: without this code, the preview stays grey "
      "after a rotation; with it, the preview is shown.")
-figure("4_rotation_sans_et_avec.png", "rotation during the capture, without onSaveInstanceState (top) and with it (bottom)", 14)
+grille([("captures_test_claude/rotation_sans_sauvegarde.png", "without onSaveInstanceState: preview lost"),
+        ("captures_test_claude/rotation_avec_sauvegarde.png", "with onSaveInstanceState: preview kept")],
+       "rotation during the capture", largeur=12, colonnes=1)
 
 titre("3. Displaying the picture in the event")
 para("ThirdActivity passes the path of the picture in the Intent (EXTRA_PHOTO). EventActivity reads "
@@ -247,15 +276,20 @@ para("GalleryActivity lists the files of the pictures folder, the most recent fi
      "subject asks for all the pictures taken by the application, including one taken in a form "
      "that was not saved. The adapter extends ArrayAdapter<File> and overrides getView to build an "
      "ImageView, reusing the views that leave the screen.")
-figure("2_galerie.png", "the PHOTOS button, the empty gallery, the gallery with 6 pictures")
+grille([("captures_test_claude/galerie_vide.png", "before any photo"),
+        ("captures_test_claude/galerie_6_photos.png", "after six photos"),
+        ("captures_test_claude/photo_annulee.png", "a cancelled photo")],
+       "the gallery, and a cancelled photo")
 
 titre("5. Bonus: capturing videos")
 para("The video works like the photo: ActivityResultContracts.CaptureVideo writes into a .mp4 file "
      "of getExternalFilesDir(Environment.DIRECTORY_MOVIES), shared by the same FileProvider (a second "
      "external-files-path entry). EventActivity plays it in a VideoView with a MediaController. "
      "seekTo(1) shows the first frame, otherwise the VideoView stays black.")
-figure("3_ecran_evenement.png", "the event with its photo and its video, then the video controls", 12)
-figure("5_video_et_annulation.png", "recording a video, confirming it, and a cancelled photo")
+grille([("mes_captures/04_camera_video.png", "recording the video"),
+        ("mes_captures/05_liste_evenement_cree.png", "the new event « testtp5 »"),
+        ("mes_captures/06_evenement_photo_video.png", "its photo and its video")],
+       "the bonus video, from the capture to the event screen")
 
 titre("6. Tests")
 tab = doc.add_table(rows=1, cols=2)
@@ -263,7 +297,7 @@ tab.style = "Light List Accent 1"
 tab.rows[0].cells[0].text, tab.rows[0].cells[1].text = "Test", "Result"
 for a, b in (
     ("Take a photo from the form", "preview shown, .jpg file in files/Pictures"),
-    ("Save the event, open it", "photo shown under the coordinates"),
+    ("Save the event « testtp5 » (conference), open it", "photo and video shown, button CALL 18"),
     ("Open a downloaded event", "no photo, no empty space"),
     ("Cancel a photo", "Toast « Photo annulee », empty file deleted"),
     ("Rotate the phone during the capture", "preview kept (onSaveInstanceState)"),
