@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TP1Intents</string>
+    <string name="welcome">Welcome!\nPlease enter your details below to continue...</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_email">Email</string>
+    <string name="action_ok">OK</string>
+    <string name="hello">Hello</string>
+    <string name="action_next">NEXT</string>
+    <string name="action_previous">PREVIOUS</string>
+    <string name="third_title">Troisieme ecran</string>
+    <string name="photo_description">Photo illustrant le second ecran</string>
+    <string name="empty_name">Entrez au moins un nom</string>
+</resources>

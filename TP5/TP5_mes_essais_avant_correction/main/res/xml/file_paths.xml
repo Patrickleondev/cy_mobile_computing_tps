@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TP5 : les dossiers que le FileProvider a le droit de partager -->
+<paths>
+    <!-- getExternalFilesDir(Environment.DIRECTORY_PICTURES) -->
+</external-path>
+    name="photos"
+    path="Pictures/"
+    </paths>

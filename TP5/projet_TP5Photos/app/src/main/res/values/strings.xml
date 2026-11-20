@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">TP5Photos</string>
+    <string name="welcome">Welcome!\nPlease enter your details below to continue...</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_email">Email</string>
+    <string name="action_ok">OK</string>
+    <string name="hello">Hello</string>
+    <string name="action_next">NEXT</string>
+    <string name="action_previous">PREVIOUS</string>
+    <string name="action_add">AJOUTER</string>
+    <string name="third_title">Evenements</string>
+    <string name="photo_description">Photo illustrant le second ecran</string>
+    <string name="empty_name">Entrez au moins un nom</string>
+    <string name="status_loading">Telechargement des evenements...</string>
+    <string name="status_error">Echec du telechargement (voir Logcat)</string>
+    <string name="status_count">%1$d evenements</string>
+    <string name="event_details">Latitude : %1$s\nLongitude : %2$s\nType : %3$s</string>
+    <string name="event_title">Evenement</string>
+    <string name="label_type">Type: %1$s</string>
+    <string name="label_coords">Coordonnees : %1$s, %2$s</string>
+    <string name="address_loading">Recherche de l\'adresse...</string>
+    <string name="address_not_found">Adresse introuvable</string>
+    <string name="address_unavailable">Geocodeur indisponible sur cet appareil</string>
+    <string name="location_denied">Sans la permission de localisation, impossible de placer l\'evenement</string>
+    <string name="you_are_here">Vous etes ici</string>
+    <string name="hint_event_name">Nom de l\'evenement</string>
+    <string name="waiting_position">En attente de la position GPS...</string>
+    <string name="action_save">ENREGISTRER</string>
+    <string name="empty_event_name">Donne un nom a l\'evenement</string>
+    <!-- TP4 : appels et SMS -->
+    <string name="action_call">APPELER LE %1$s</string>
+    <string name="hint_sms_number">Numero du destinataire</string>
+    <string name="action_send_sms">ENVOYER UN SMS</string>
+    <string name="sms_text">Evenement %1$s, position %2$s, %3$s</string>
+    <string name="call_ringing">Appel : le telephone sonne</string>
+    <string name="call_offhook">Appel : en communication</string>
+    <string name="call_idle">Appel : termine</string>
+    <string name="call_denied">Sans la permission d\'appeler, impossible de joindre les secours</string>
+    <string name="sms_sending">Envoi du SMS a %1$s...</string>
+    <string name="sms_sent">SMS envoye</string>
+    <string name="sms_failed">Echec de l\'envoi du SMS (code %1$d)</string>
+    <string name="sms_denied">Sans la permission SMS, impossible d\'envoyer le message</string>
+    <string name="sms_received">SMS de %1$s : %2$s</string>
+    <!-- TP5 : photos et videos -->
+    <string name="action_take_photo">PRENDRE UNE PHOTO</string>
+    <string name="action_take_video">FILMER (BONUS)</string>
+    <string name="action_gallery">PHOTOS</string>
+    <string name="photo_preview_description">Apercu de la photo de l\'evenement</string>
+    <string name="event_photo_description">Photo de l\'evenement</string>
+    <string name="photo_cancelled">Photo annulee</string>
+    <string name="video_cancelled">Video annulee</string>
+    <string name="video_saved">Video enregistree</string>
+    <string name="no_camera_app">Aucune application d\'appareil photo sur ce telephone</string>
+    <string name="file_error">Impossible de creer le fichier</string>
+    <string name="gallery_title">Photos prises par l\'application</string>
+    <string name="gallery_count">Photos : %1$d</string>
+    <string name="gallery_empty">Aucune photo pour l\'instant</string>
+    <string-array name="event_types">
+        <item>concert</item>
+        <item>forum</item>
+        <item>conference</item>
+        <item>sport</item>
+        <item>exposition</item>
+    </string-array>
+</resources>

@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">TP3Maps</string>
+    <string name="welcome">Welcome!\nPlease enter your details below to continue...</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_email">Email</string>
+    <string name="action_ok">OK</string>
+    <string name="hello">Hello</string>
+    <string name="action_next">NEXT</string>
+    <string name="action_previous">PREVIOUS</string>
+    <string name="action_add">AJOUTER</string>
+    <string name="third_title">Evenements</string>
+    <string name="photo_description">Photo illustrant le second ecran</string>
+    <string name="empty_name">Entrez au moins un nom</string>
+    <string name="status_loading">Telechargement des evenements...</string>
+    <string name="status_error">Echec du telechargement (voir Logcat)</string>
+    <string name="status_count">%1$d evenements</string>
+    <string name="event_details">Latitude : %1$s\nLongitude : %2$s\nType : %3$s</string>
+    <string name="event_title">Evenement</string>
+    <string name="label_type">Type: %1$s</string>
+    <string name="label_coords">Coordonnees : %1$s, %2$s</string>
+    <string name="address_loading">Recherche de l\'adresse...</string>
+    <string name="address_not_found">Adresse introuvable</string>
+    <string name="address_unavailable">Geocodeur indisponible sur cet appareil</string>
+    <string name="location_denied">Sans la permission de localisation, impossible de placer l\'evenement</string>
+    <string name="you_are_here">Vous etes ici</string>
+    <string name="hint_event_name">Nom de l\'evenement</string>
+    <string name="waiting_position">En attente de la position GPS...</string>
+    <string name="action_save">ENREGISTRER</string>
+    <string name="empty_event_name">Donne un nom a l\'evenement</string>
+    <string-array name="event_types">
+        <item>concert</item>
+        <item>forum</item>
+        <item>conference</item>
+        <item>sport</item>
+        <item>exposition</item>
+    </string-array>
+</resources>

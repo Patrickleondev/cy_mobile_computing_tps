@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".EventActivity">
+
+
+    <TextView
+        android:id="@+id/event_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        tools:text="Concert de rentree"
+        />
+    <TextView
+        android:id="@+id/event_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:text="Type: Concert"
+        />
+
+    <TextView
+        android:id="@+id/event_coords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        tools:text="Coordonnees : 49.0387, 2.0782" />
+
+    <!-- TP5 1 : la photo de l'evenement (et la video en bonus), cachees s'il n'y en a pas -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/event_photo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/event_photo_description"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            tools:src="@drawable/photo"
+            tools:visibility="visible" />
+
+        <VideoView
+            android:id="@+id/event_video"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:visibility="gone" />
+    </LinearLayout>
+    <!-- TP4 1 : le numero depend du type de l'evenement, le texte est mis par EventActivity -->
+    <Button
+        android:id="@+id/call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="call"
+        tools:text="APPELER LE 15" />
+    <!-- TP4 2 : destinataire du SMS (5554 = l'emulateur lui-meme) -->
+    <EditText
+        android:id="@+id/sms_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/hint_sms_number"
+        android:inputType="phone"
+        android:text="5554" />
+
+    <Button
+        android:id="@+id/send_sms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="sendSms"
+        android:text="@string/action_send_sms" />
+<!--  La partie du 1 du sujet : L'adresse trouvee par le Geocoder -->
+    <TextView
+        android:id="@+id/event_address"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        tools:text="Boulevard du Port, 95000 Cergy" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="previous"
+        android:text="@string/action_previous"/>
+</LinearLayout>
